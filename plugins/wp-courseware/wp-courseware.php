@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WP Courseware
- * Version: 4.0.2
+ * Version: 100.100.0
  * Plugin URI: http://wpcourseware.com
  * Description: WP Courseware is WordPress's leading Learning Managment System (L.M.S.) plugin and is so simple you can create an online training course in minutes. It's as simple as drag and drop!
  * Author: Fly Plugins

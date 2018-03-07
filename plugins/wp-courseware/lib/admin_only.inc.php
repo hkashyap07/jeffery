@@ -1933,7 +1933,7 @@ function WPCW_users_processUserResetAbility()
 
 		// Now do the reset of the progress.
 		WPCW_users_resetProgress($userList, $unitList, $courseMap->getCourseDetails(), $courseMap->getUnitCount());
-
+		do_action('wdm_reset_user_course_progress', $userList, $unitList, $courseMap->getCourseDetails(), $courseMap->getUnitCount());
 		// Redirect to remove the GET flags from the URL.
 		wp_redirect(add_query_arg('wpcw_reset', 'true', 'users.php'));
 		die();

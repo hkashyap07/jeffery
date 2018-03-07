@@ -238,12 +238,22 @@ class WPCW_Certificate
 		$this->pdffile->SetXY($date_X, $this->footer_Y+8);
 		$this->pdffile->Cell(0, 0, __('Date', 'wp_courseware'), false, false, 'L');
 
+		/* Code added by Wisdmlabs */
+		$this->pdffile->SetXY($date_X+80, $this->footer_Y+8);
+		$this->pdffile->Cell(0, 0, __('Expire Date', 'wp_courseware'), false, false, 'L');
+		/* End Code */
+
 		// Signature - field
 		$this->pdffile->SetXY($this->signature_X, $this->footer_Y+8);
 		$this->pdffile->Cell(0,0, __('Instructor', 'wp_courseware'), false, false, 'L');
 
 		// Lines - Date, Signature
 		$this->pdffile->Line($date_X, 		$this->footer_Y+7, $date_X + $this->footer_line_length,	 	 $this->footer_Y+7);
+
+		/* Code added by Wisdmlabs */
+		$this->pdffile->Line($date_X+80, $this->footer_Y+7, $date_X + $this->footer_line_length+80,	 	 $this->footer_Y+7);
+		/* End Code */
+
 		$this->pdffile->Line($this->signature_X, 	$this->footer_Y+7, $this->signature_X + $this->footer_line_length, $this->footer_Y+7);
 
 
@@ -267,6 +277,21 @@ class WPCW_Certificate
 
 		$this->pdffile->SetXY($date_X + (($this->footer_line_length - $date_str_len)/2), $this->footer_Y);
 		$this->pdffile->Cell(0,0, $date_str, false, false);
+		
+		/* Added by Wisdmlabs */
+		if ($certificateDetails) {
+			$wdm_cert_exp_timestamp = get_user_meta($certificateDetails->cert_user_id, '_wpcw_'.$certificateDetails->cert_course_id.'_course_certificate_expires_on', true);
+	        $cert_expr_date = '';
+	        $wdm_str_len = '';
+			if (!empty($wdm_cert_exp_timestamp)) {
+	            $cert_expr_date = date('F d, Y', $wdm_cert_exp_timestamp);
+	            $wdm_str_len = $this->pdffile->GetStringWidth($cert_expr_date);
+			}
+	        $this->pdffile->SetXY($date_X+80 + (($this->footer_line_length - $wdm_str_len)/2), $this->footer_Y);
+			$this->pdffile->Cell(0,0, $cert_expr_date, false, false);
+	    }
+		/* End */
+
 
 		// Signature - signature itself
 		$this->render_handleSignature();
@@ -279,6 +304,13 @@ class WPCW_Certificate
 		{
 			ob_end_clean();
 		}
+        /*Added by Wisdmlabs */
+        if ('download_locally' == $showMode) {
+            $wdmPath = WP_CONTENT_DIR.'/uploads/wdm-temp-cert/certificate.pdf';
+            $this->pdffile->Output($wdmPath, 'F');
+            return;
+        }
+        /* End*/
 
 		// Change output based on what's been specified as a parameter.
 		if ('browser' == $showMode) {
