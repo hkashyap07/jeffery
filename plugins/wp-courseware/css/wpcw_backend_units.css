@@ -1,0 +1,39 @@
+/**
+ * CSS shown on edit.php?post_type=course_unit page in wp-admin.
+ */
+
+/* Content Drip Section */
+.wpcw_units_drip_section {
+	margin: 0 0 1em;
+}
+
+.wpcw_units_drip_section label {
+	margin: 0 0 .3em;
+	line-height: 1.1em;
+	display: block;
+}
+
+#wpcw_units_drip_type-drip_interval #wpcw_units_drip_interval {
+	min-width: 5em;
+	width: 10%;
+	vertical-align: top;
+	margin-right: .5em;
+	text-align: center;
+	x
+}
+
+#wpcw_units_drip_type-drip_interval #wpcw_units_drip_interval_type {
+	vertical-align: top;
+}
+
+#wpcw_units_drip_type-drip_interval {
+	display: none;
+}
+
+#wpcw_units_drip_type-drip_specific {
+	display: none;
+}
+
+.wpcw_datepicker_vis {
+	text-align: center;
+}
